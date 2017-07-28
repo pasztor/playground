@@ -1,8 +1,9 @@
 MONTH=$(shell date +%Y-%m)
 DAY=$(shell date +%d)
 LASTITLE=$(shell git log |grep -A 1 ^$$ | head -2 | tail -1)
+LATEST=$(shell readlink LATEST.md)
 
-.SILENT: default
+.SILENT: default test2
 
 default:
 	printf "Usage:\n"
@@ -27,11 +28,18 @@ publish:
 	git push
 
 test:
-	git add $$(readlink LATEST.md)
+	@echo First we test if $(LATEST) has changed:
+	git status $(LATEST) | grep -q modified
+	git add $(LATEST)
 	if echo "$(LASTITLE)" | grep "$$(readlink LATEST.md) published" ; then \
 		EDITOR=/bin/true git commit --amend ;\
 		git push --force ;\
 	else \
 		git commit -m "$$(readlink LATEST.md) published" ;\
 	fi
-		
+
+test2:
+	echo MONTH: $(MONTH)
+	echo DAY: $(DAY)
+	echo LASTITLE: $(LASTITLE)
+	echo LATEST: $(LATEST)
