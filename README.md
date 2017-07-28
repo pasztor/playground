@@ -2,7 +2,7 @@
 playground repo, to test how things work
 
 My idea is to write my blog into a repo here, and add links, like:
-* [LATEST](LATEST.md)
+* [LATEST](2017-07/D28.md)
 * [x.month list](month.md)
 
 and with a good makefile, I can cover the following usecases:
@@ -15,4 +15,4 @@ When I add a new entry, the following should be considered:
 * need some "helper function" to find out about a .md file, in which month was it published. eg. git log or git blame, or sg. could be processed in order to achieve this.
 
 And finally: The list of months, when I published a blog entry
-* 2017-07/INDEX.md
+* [2017-07](2017-07/INDEX.md)
