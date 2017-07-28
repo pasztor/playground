@@ -3,7 +3,7 @@ DAY=$(shell date +%d)
 LASTITLE=$(shell git log |grep -A 1 ^$$ | head -2 | tail -1)
 LATEST=$(shell readlink LATEST.md)
 
-.SILENT: default test2
+.SILENT: default test
 
 default:
 	printf "Usage:\n"
@@ -23,22 +23,18 @@ new:
 	grep D$(DAY).md $(MONTH)/INDEX.md || (echo "* [$(MONTH)-$(DAY)](D$(DAY).md)" >>$(MONTH)/INDEX.md ; git add $(MONTH)/INDEX.md)
 
 publish:
-	git add $$(readlink LATEST.md)
-	git commit -m "$$(readlink LATEST.md) published"
-	git push
-
-test:
 	@echo First we test if $(LATEST) has changed:
 	git status $(LATEST) | grep -q modified
 	git add $(LATEST)
-	if echo "$(LASTITLE)" | grep "$$(readlink LATEST.md) published" ; then \
+	if echo "$(LASTITLE)" | grep "$(LATEST) published" ; then \
 		EDITOR=/bin/true git commit --amend ;\
 		git push --force ;\
 	else \
-		git commit -m "$$(readlink LATEST.md) published" ;\
+		git commit -m "$(LATEST) published" ;\
+		git push
 	fi
 
-test2:
+test:
 	echo MONTH: $(MONTH)
 	echo DAY: $(DAY)
 	echo LASTITLE: $(LASTITLE)
