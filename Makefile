@@ -31,7 +31,7 @@ publish:
 		git push --force ;\
 	else \
 		git commit -m "$(LATEST) published" ;\
-		git push
+		git push ;\
 	fi
 
 test:
