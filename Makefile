@@ -2,6 +2,7 @@ MONTH=$(shell date +%Y-%m)
 DAY=$(shell date +%d)
 LASTITLE=$(shell git log |grep -A 1 ^$$ | head -2 | tail -1)
 LATEST=$(shell readlink LATEST.md)
+LASTMONTH=$(shell x=$(LATEST) ; x=$${x%/*}; echo $$x )
 
 .SILENT: default test
 
@@ -39,3 +40,4 @@ test:
 	echo DAY: $(DAY)
 	echo LASTITLE: $(LASTITLE)
 	echo LATEST: $(LATEST)
+	echo LASTMONTH: "[$(LASTMONTH)]"
